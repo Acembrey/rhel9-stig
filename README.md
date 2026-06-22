@@ -17,12 +17,12 @@ rhel9-stig-project/
 ├── inventory/
 │   └── hosts
 ├── vars/
-│   └── profiles/
-│       └── stig_defaults.yml       ← Global Default for options
-├── playbooks/
-│   ├── stig_workstation.yml        ← Edit me
-│   ├── stig_server.yml             ← Edit me
-│   └── stig_packer.yml             ← Edit me
+│   └── profiles/                   ← Create different profiles for different images
+│       └── stig_defaults.yml       ← This is just the default (everything included)
+├── playbooks/                      ← Establish different targets/roles
+│   ├── stig_workstation.yml
+│   ├── stig_server.yml
+│   └── stig_packer.yml
 └── roles/
 ```
 
