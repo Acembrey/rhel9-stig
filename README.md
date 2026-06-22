@@ -11,6 +11,7 @@ maintainable control surface.
 ```
 rhel9-stig-project/
 ├── ansible.cfg
+├── collections
 ├── requirements.yml
 ├── inventory/
 │   └── hosts
