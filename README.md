@@ -33,8 +33,8 @@ rhel9-stig-project/
 ### 1. Install dependencies
 
 ```bash
-ansible-galaxy install -r requirements.yml
-ansible-galaxy collection install -r requirements.yml
+ansible-galaxy install -r requirements.yml -p ./roles
+ansible-galaxy collection install -r requirements.yml -p ./collections
 ```
 
 Ansible **2.9+** is required (2.14+ recommended). Collections required:
