@@ -77,22 +77,7 @@ echo "==> Installing ansible-core==${ANSIBLE_CORE_VERSION}"
 pip install "ansible-core==${ANSIBLE_CORE_VERSION}"
 
 # ---------------------------------------------------------------------------
-# 4. Install roles + collections from the project's requirements.yml
-#    Roles  -> ../roles        (matches roles_path in ansible.cfg)
-#    Collections -> ../collections (matches collections_path in ansible.cfg)
-# ---------------------------------------------------------------------------
-if [ -f "${REQUIREMENTS_FILE}" ]; then
-    echo "==> Installing roles from ${REQUIREMENTS_FILE} into ${PROJECT_ROOT}/roles"
-    ansible-galaxy install -r "${REQUIREMENTS_FILE}" -p "${PROJECT_ROOT}/roles"
-
-    echo "==> Installing collections from ${REQUIREMENTS_FILE} into ${PROJECT_ROOT}/collections"
-    ansible-galaxy collection install -r "${REQUIREMENTS_FILE}" -p "${PROJECT_ROOT}/collections"
-else
-    echo "WARNING: ${REQUIREMENTS_FILE} not found — skipping role/collection install." >&2
-fi
-
-# ---------------------------------------------------------------------------
-# 5. Summary
+# 4. Summary
 # ---------------------------------------------------------------------------
 echo ""
 echo "==> Done."

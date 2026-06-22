@@ -37,31 +37,6 @@ ansible-playbook -i inventory/hosts playbooks/stig_workstation.yml --check --dif
 1. Locates a usable system Python (3.10–3.12).
 2. Creates a fresh venv at `ansible/venv/` (wipes and rebuilds each run).
 3. Installs `ansible-core==2.16.*`.
-4. Installs roles from `../requirements.yml` into `../roles/`.
-5. Installs collections from `../requirements.yml` into `../collections/`.
+4. Installs collections from `../requirements.yml` into `../collections/`.
 
-Both install paths line up with `roles_path` and `collections_path` in
-`../ansible.cfg`, so nothing outside this venv/repo is touched.
 
-## Do not commit the venv
-
-Add to the project's `.gitignore`:
-
-```
-ansible/venv/
-collections/
-```
-
-(`roles/` and `requirements.yml` ARE meant to be committed — the venv and
-the downloaded collection/role payloads are not, since `setup.sh` +
-`requirements.yml` fully reproduce them.)
-
-Wait — roles ARE reproducible from `requirements.yml` too. If you want a
-fully minimal repo, also ignore:
-
-```
-roles/*
-!roles/.gitkeep
-```
-
-and let `setup.sh` populate `roles/` fresh on every clone.
