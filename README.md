@@ -10,6 +10,7 @@ maintainable control surface.
 
 ```
 rhel9-stig-project/
+├── ansible                         ← Python Virtual Environment to make the project portable (and stable)
 ├── ansible.cfg
 ├── collections
 ├── requirements.yml
@@ -17,12 +18,12 @@ rhel9-stig-project/
 │   └── hosts
 ├── vars/
 │   └── profiles/
-│       └── stig_defaults.yml       ← THE master toggle file
+│       └── stig_defaults.yml       ← Global Default for options
 ├── playbooks/
-│   ├── stig_workstation.yml        ← RHEL 9 Graphical Workstation
-│   ├── stig_server.yml             ← RHEL 9 Headless Server
-│   └── stig_packer.yml             ← Golden Image / Packer build (Not finished)
-└── roles/                          ← drop local roles here if needed
+│   ├── stig_workstation.yml        ← Edit me
+│   ├── stig_server.yml             ← Edit me
+│   └── stig_packer.yml             ← Edit me
+└── roles/
 ```
 
 ---
