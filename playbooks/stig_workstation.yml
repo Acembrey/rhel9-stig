@@ -116,10 +116,7 @@
   roles:
     # Base STIG — all server controls
     # - role: RedHatOfficial.rhel9_stig
-    - role: ansible-role-rhel9-stig
+    - role: RedHatOfficial.rhel9_stig
 
-    # GUI supplement — dconf, GDM, GNOME screensaver, autorun, etc.
-    # This role is REQUIRED for a graphical workstation to meet the
-    # DISA STIG RHEL 9 GUI profile.  It adds controls that are not
-    # in the base role (dconf_gnome_*, gnome_gdm_*, xwindows_runlevel_target).
-    - role: ansible-role-rhel9-stig_gui
+    # This role is REQUIRED for a graphical workstation to meet DISA reqs
+    - role: aRedHatOfficial.rhel9_stig_gui

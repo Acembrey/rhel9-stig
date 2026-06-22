@@ -61,6 +61,5 @@
     DISA_STIG_RHEL_09_271010: false  # dconf_gnome_screensaver_idle_delay (GUI)
 
   roles:
-    - role: ansible-role-rhel9-stig
-    # - role: RedHatOfficial.rhel9_stig
+    - role: RedHatOfficial.rhel9_stig
     # NOTE: rhel9_stig_gui is intentionally NOT listed here
