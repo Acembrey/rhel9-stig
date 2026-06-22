@@ -1,0 +1,28 @@
+---
+# =============================================================================
+# requirements.yml
+# Install all dependencies with:
+#   ansible-galaxy install -r requirements.yml
+#   ansible-galaxy collection install -r requirements.yml
+# =============================================================================
+
+roles:
+  # Primary STIG role — server/headless baseline (RHEL 9 V2R8)
+  - name: RedHatOfficial.rhel9_stig
+    version: "0.1.81"
+
+  # GUI supplement — adds dconf/GDM/GNOME controls on top of the base role.
+  # Required when targeting graphical workstations.
+  - name: RedHatOfficial.rhel9_stig_gui
+    # NOTE: pin to latest release; bump intentionally after review
+    version: ">=0.1.0"
+
+collections:
+  # Used heavily by ComplianceAsCode-generated tasks:
+  #   ansible.posix.sysctl, ansible.posix.mount, ansible.posix.selinux, etc.
+  - name: ansible.posix
+    version: ">=1.5.4"
+
+  # Used for community.general.ini_file, pamd, sysctl helpers, etc.
+  - name: community.general
+    version: ">=8.0.0"

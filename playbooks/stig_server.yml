@@ -1,0 +1,66 @@
+---
+# =============================================================================
+# playbooks/stig_server.yml
+#
+# TARGET:   RHEL 9.x Headless Server
+# ROLES:    RedHatOfficial.rhel9_stig  (base STIG — V2R8, no GUI role)
+#
+# This playbook demonstrates how to derive a different image profile from the
+# same stig_defaults.yml base.  Only the server-specific overrides appear here.
+#
+# USAGE:
+#   ansible-playbook -i inventory/hosts playbooks/stig_server.yml --check --diff
+#   ansible-playbook -i inventory/hosts playbooks/stig_server.yml
+# =============================================================================
+
+- name: DISA STIG RHEL 9 — Headless Server
+  hosts: servers
+  become: true
+  gather_facts: true
+
+  vars_files:
+    - ../vars/profiles/stig_defaults.yml
+
+  vars:
+
+    # -------------------------------------------------------------------------
+    # Server-specific overrides
+    # -------------------------------------------------------------------------
+
+    # Servers rarely need X Windows.  The xwindows_runlevel_target control
+    # in the base role enforces multi-user.target (no GUI).
+    # xwindows_runlevel_target is in the GUI role — not applicable here.
+
+    # Tighten auditd for servers: halt on disk-full/disk-error (default).
+    # These are already set to 'halt' in stig_defaults.yml.
+
+    # -------------------------------------------------------------------------
+    # Disable GUI-related controls — not applicable on a headless server.
+    # The base role (rhel9_stig) includes some dconf tasks; they will simply
+    # no-op if GNOME is not installed, but being explicit avoids noise.
+    # -------------------------------------------------------------------------
+    dconf_db_up_to_date:                    false  # no GNOME on server
+    dconf_gnome_banner_enabled:             false
+    dconf_gnome_disable_automount_open:     false
+    dconf_gnome_disable_autorun:            false
+    dconf_gnome_disable_ctrlaltdel_reboot:  false
+    dconf_gnome_disable_restart_shutdown:   false
+    dconf_gnome_disable_user_list:          false
+    dconf_gnome_lock_screen_on_smartcard_removal: false
+    dconf_gnome_login_banner_text:          false
+    dconf_gnome_screensaver_idle_delay:     false
+    dconf_gnome_screensaver_lock_delay:     false
+    dconf_gnome_screensaver_lock_enabled:   false
+    dconf_gnome_screensaver_mode_blank:     false
+    dconf_gnome_screensaver_user_locks:     false
+    dconf_gnome_session_idle_user_locks:    false
+    gnome_gdm_disable_automatic_login:      false
+    logind_session_timeout:                 false
+
+    # Corresponding STIG IDs for the dconf/GNOME controls
+    DISA_STIG_RHEL_09_271010: false  # dconf_gnome_screensaver_idle_delay (GUI)
+
+  roles:
+    - role: ansible-role-rhel9-stig
+    # - role: RedHatOfficial.rhel9_stig
+    # NOTE: rhel9_stig_gui is intentionally NOT listed here
