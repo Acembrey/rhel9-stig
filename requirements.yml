@@ -15,7 +15,7 @@ roles:
   # Required when targeting graphical workstations.
   - name: RedHatOfficial.rhel9_stig_gui
     # NOTE: pin to latest release; bump intentionally after review
-    version: ">=0.1.0"
+    version: "0.1.81"
 
 collections:
   # Used heavily by ComplianceAsCode-generated tasks:
