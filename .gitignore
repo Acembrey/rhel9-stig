@@ -1,0 +1,34 @@
+# --- Project-local Ansible venv ---
+# Ignore anything that gets built in the venv
+ansible/venv/
+
+# --- Galaxy-installed roles ---
+# Keep the `roles` directory, ignore anything that gets built inside the roles directory
+roles/*
+!roles/.gitkeep
+
+# --- Galaxy-installed collections ---
+# Same idea as roles.
+collections/*
+!collections/.gitkeep
+
+# --- Ansible runtime artifacts ---
+# more bloat
+*.retry
+*.log
+
+# --- Inventory secrets ---
+# Uncomment these lines if I start using vault (only reason I'm not currently is to determine usage)
+# inventory/host_vars/*/vault.yml
+# *.vault
+
+# --- In case setup.sh is run from other locations ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- OS / editor noise ---
+.DS_Store
+*.swp
+.vscode/
+.idea/
