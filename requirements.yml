@@ -1,11 +1,4 @@
 ---
-# =============================================================================
-# requirements.yml
-# Install all dependencies with:
-#   ansible-galaxy install -r requirements.yml
-#   ansible-galaxy collection install -r requirements.yml
-# =============================================================================
-
 roles:
   # Primary STIG role — server/headless baseline (RHEL 9 V2R8)
   - name: RedHatOfficial.rhel9_stig
