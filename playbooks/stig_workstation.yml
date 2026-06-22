@@ -114,9 +114,5 @@
   # 3. Roles
   # ---------------------------------------------------------------------------
   roles:
-    # Base STIG — all server controls
-    # - role: RedHatOfficial.rhel9_stig
-    - role: RedHatOfficial.rhel9_stig
-
     # This role is REQUIRED for a graphical workstation to meet DISA reqs
     - role: aRedHatOfficial.rhel9_stig_gui
