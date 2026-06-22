@@ -21,7 +21,7 @@ rhel9-stig-project/
 ├── playbooks/
 │   ├── stig_workstation.yml        ← RHEL 9 Graphical Workstation
 │   ├── stig_server.yml             ← RHEL 9 Headless Server
-│   └── stig_packer.yml             ← Golden Image / Packer build
+│   └── stig_packer.yml             ← Golden Image / Packer build (Not finished)
 └── roles/                          ← drop local roles here if needed
 ```
 
