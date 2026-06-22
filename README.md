@@ -10,9 +10,10 @@ maintainable control surface.
 
 ```
 rhel9-stig-project/
-├── ansible                         ← Python Virtual Environment to make the project portable (and stable)
+├── ansible                         ← Python venv for ansible (2.16)
 ├── ansible.cfg
 ├── collections
+├── group_vars                      ← Useful for group specific vars (i.e different remote user) 
 ├── requirements.yml
 ├── inventory/
 │   └── hosts
