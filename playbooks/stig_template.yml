@@ -1,0 +1,104 @@
+---
+# =============================================================================
+# playbooks/stig_workstation.yml
+#
+# TARGET:   RHEL 9.7 Graphical Workstation
+# ROLES:    RedHatOfficial.rhel9_stig_gui   (V2R8)
+#
+# =============================================================================
+
+- name: DISA STIG RHEL 9 — Graphical Workstation
+  hosts: workstations
+  become: true
+  gather_facts: true
+
+  # ---------------------------------------------------------------------------
+  # 1. Load the shared defaults.  Every control starts as true here.
+  #    This file is the source of truth for what gets applied across
+  #    ALL playbooks in this project.
+  # ---------------------------------------------------------------------------
+  vars_files:
+    - ../vars/profiles/stig_defaults.yml
+
+  # ---------------------------------------------------------------------------
+  # 2. Playbook-level overrides.
+  #    These take precedence over stig_defaults.yml.
+  #    Document every false entry — ISSO/AO acceptance is implied.
+  # ---------------------------------------------------------------------------
+  vars:
+
+    # -------------------------------------------------------------------------
+    # Tunable overrides specific to this workstation profile
+    # -------------------------------------------------------------------------
+
+    # Crypto policy: workstations commonly need FIPS:OSPP or just FIPS.
+    # FIPS:STIG is the default and fully correct for RHEL 9 workstations.
+    # var_system_crypto_policy: "FIPS:STIG"    # inherited from defaults
+
+    # Idle timeout: 10 minutes (600s) is the STIG minimum; match screensaver.
+    # sshd_idle_timeout_value: "600"           # inherited from defaults
+
+    # rsyslog remote host — set to your actual log aggregator.
+    # rsyslog_remote_loghost_address: "siem.example.com"
+
+    # Postfix alias — required by the role; set to your mail relay.
+    # var_postfix_root_mail_alias: "security@example.com"
+
+    # NTP — use your site's NTP source if not on the mil network.
+    # var_multiple_time_servers: "0.us.pool.ntp.mil"
+
+    # -------------------------------------------------------------------------
+    # DISABLED CONTROLS — Workstation-specific exceptions
+    # Each false entry must reference an approved POA&M / AO acceptance.
+    #
+    # Format:
+    #   DISA_STIG_RHEL_09_NNNNNN: false  # REASON | POA&M ref
+    # -------------------------------------------------------------------------
+
+    # --- Package removal exceptions ---
+
+    # DISA_STIG_RHEL_09_215035: false
+    # Rationale: vsftpd required for <specific workflow>.  POA&M: POAM-001
+
+    # --- Operational impact exceptions ---
+
+    # DISA_STIG_RHEL_09_631020: false
+    # Rationale: AIDE initial DB build takes 30+ min; run manually post-deploy.
+    # The aide_build_database functional task is also set below for consistency.
+
+    # aide_build_database: false
+    # Rationale: Paired with above.  Run 'aide --init' in a maintenance window.
+
+    # --- fapolicyd ---
+    # fapolicyd will block unsigned/unlisted binaries by default.
+    # If you have in-house tools that are not in the fapolicy allow list,
+    # you must either whitelist them or accept breakage.
+    # DISA_STIG_RHEL_09_433010: false  # fapolicy_default_deny — risky to disable
+    # DISA_STIG_RHEL_09_433015: false  # service_fapolicyd_enabled
+
+    # --- auditd failure mode ---
+    # var_audit_failure_mode: "2" causes a kernel panic on audit failure.
+    # For workstations where user productivity is a concern, some shops set
+    # this to "1" (printk only).  This requires AO approval.
+    # var_audit_failure_mode: "1"   # REQUIRES AO ACCEPTANCE
+
+    # --- USBGuard ---
+    # usbguard_generate_policy will lock down USB to currently connected
+    # devices at the time the role runs.  On a workstation with a USB hub,
+    # keyboard, mouse, and CAC reader, this is usually fine.
+    # If you need to allow additional USB classes, customize the generated
+    # policy (/etc/usbguard/rules.conf) after the role runs.
+
+    # --- X11 forwarding ---
+    # RHEL 9 STIG disables X11 forwarding in sshd.  On a graphical workstation
+    # that is also used as an SSH client, this only affects *inbound* X11
+    # tunnels.  Outbound X11 forwarding from this host to other systems is
+    # controlled by ~/.ssh/config, not sshd.
+    # DISA_STIG_RHEL_09_255165: true   # sshd_disable_x11_forwarding — leave ON
+
+  # ---------------------------------------------------------------------------
+  # 3. Roles
+  # ---------------------------------------------------------------------------
+  roles:
+    # This role is REQUIRED for a graphical workstation to meet DISA reqs
+    - role: RedHatOfficial.rhel9_stig_gui

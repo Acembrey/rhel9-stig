@@ -1,12 +1,4 @@
 ---
-# =============================================================================
-# playbooks/stig_server.yml
-#
-# TARGET:   RHEL 9.x Headless Server
-# ROLES:    RedHatOfficial.rhel9_stig  (base STIG — V2R8, no GUI role)
-#
-# =============================================================================
-
 - name: DISA STIG RHEL 9 — Headless Server
   hosts: servers
   become: true
@@ -16,23 +8,6 @@
     - ../vars/profiles/stig_defaults.yml
 
   vars:
-
-    # -------------------------------------------------------------------------
-    # Server-specific overrides
-    # -------------------------------------------------------------------------
-
-    # Servers rarely need X Windows.  The xwindows_runlevel_target control
-    # in the base role enforces multi-user.target (no GUI).
-    # xwindows_runlevel_target is in the GUI role — not applicable here.
-
-    # Tighten auditd for servers: halt on disk-full/disk-error (default).
-    # These are already set to 'halt' in stig_defaults.yml.
-
-    # -------------------------------------------------------------------------
-    # Disable GUI-related controls — not applicable on a headless server.
-    # The base role (rhel9_stig) includes some dconf tasks; they will simply
-    # no-op if GNOME is not installed, but being explicit avoids noise.
-    # -------------------------------------------------------------------------
     dconf_db_up_to_date:                    false  # no GNOME on server
     dconf_gnome_banner_enabled:             false
     dconf_gnome_disable_automount_open:     false
@@ -50,8 +25,6 @@
     dconf_gnome_session_idle_user_locks:    false
     gnome_gdm_disable_automatic_login:      false
     logind_session_timeout:                 false
-
-    # Corresponding STIG IDs for the dconf/GNOME controls
     DISA_STIG_RHEL_09_271010: false  # dconf_gnome_screensaver_idle_delay (GUI)
 
   roles:
