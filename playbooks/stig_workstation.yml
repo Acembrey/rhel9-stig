@@ -115,4 +115,4 @@
   # ---------------------------------------------------------------------------
   roles:
     # This role is REQUIRED for a graphical workstation to meet DISA reqs
-    - role: aRedHatOfficial.rhel9_stig_gui
+    - role: RedHatOfficial.rhel9_stig_gui
