@@ -37,6 +37,5 @@ ansible-playbook -i inventory/hosts playbooks/stig_workstation.yml --check --dif
 1. Locates a usable system Python (3.10–3.12).
 2. Creates a fresh venv at `ansible/venv/` (wipes and rebuilds each run).
 3. Installs `ansible-core==2.16.*`.
-4. Installs collections from `../requirements.yml` into `../collections/`.
 
 

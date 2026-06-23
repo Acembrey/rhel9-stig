@@ -62,9 +62,7 @@ if [ -d "${VENV_DIR}" ]; then
 fi
 
 echo "==> Creating venv at ${VENV_DIR}"
-"${PYTHON_BIN}" -m venv "${VENV_DIR}"
-
-# shellcheck disable=SC1091
+"${PYTHON_BIN}" -m venv "${VENV_DIR}" # shellcheck disable=SC1091
 source "${VENV_DIR}/bin/activate"
 
 echo "==> Upgrading pip/setuptools/wheel"
