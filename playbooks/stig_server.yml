@@ -5,12 +5,6 @@
 # TARGET:   RHEL 9.x Headless Server
 # ROLES:    RedHatOfficial.rhel9_stig  (base STIG — V2R8, no GUI role)
 #
-# This playbook demonstrates how to derive a different image profile from the
-# same stig_defaults.yml base.  Only the server-specific overrides appear here.
-#
-# USAGE:
-#   ansible-playbook -i inventory/hosts playbooks/stig_server.yml --check --diff
-#   ansible-playbook -i inventory/hosts playbooks/stig_server.yml
 # =============================================================================
 
 - name: DISA STIG RHEL 9 — Headless Server

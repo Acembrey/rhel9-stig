@@ -3,22 +3,8 @@
 # playbooks/stig_workstation.yml
 #
 # TARGET:   RHEL 9.7 Graphical Workstation
-# ROLES:    RedHatOfficial.rhel9_stig       (base STIG — V2R8)
-#           RedHatOfficial.rhel9_stig_gui   (GNOME/GDM/dconf controls)
+# ROLES:    RedHatOfficial.rhel9_stig_gui   (V2R8)
 #
-# USAGE:
-#   # Dry-run (always do this first):
-#   ansible-playbook -i inventory/hosts playbooks/stig_workstation.yml --check --diff
-#
-#   # Apply:
-#   ansible-playbook -i inventory/hosts playbooks/stig_workstation.yml
-#
-#   # Disable a specific control at runtime without editing files:
-#   ansible-playbook -i inventory/hosts playbooks/stig_workstation.yml \
-#     -e "DISA_STIG_RHEL_09_631020=false"    # skip AIDE initial DB build
-#
-# OVERRIDE PRECEDENCE (highest wins):
-#   --extra-vars / -e > playbook vars: (below) > vars_files (stig_defaults.yml)
 # =============================================================================
 
 - name: DISA STIG RHEL 9 — Graphical Workstation
