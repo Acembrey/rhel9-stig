@@ -25,7 +25,8 @@ rhel9-stig-project/
 │       └── stig_administrator.yml 
 ├── playbooks/                      ← What actually gets run, define target, profile, and specific variables here.
 │   ├── stig_workstation.yml
-│   └── stig_server.yml
+│   ├── stig_server.yml
+│   └── stig_template.yml 
 └── roles/
 ```
 
