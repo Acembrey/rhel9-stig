@@ -1,8 +1,9 @@
 # RHEL 9 STIG Automation Project
 
-Modular Ansible project for applying the DISA STIG RHEL 9 V2R8 role
-(`RedHatOfficial.rhel9_stig`) across different image types with a single
-maintainable control surface.
+Modular Ansible project for applying the DISA STIG RHEL 9 (Currently V2R8) role
+* Define baselines under `roles/profiles`
+* Define targets, and target specific configurations, under `playbooks`
+* All tools are self contained and static. Currently and outbound connection is required to build the environment. This can be adjusted later depending on requirements.
 
 ---
 
@@ -13,17 +14,18 @@ rhel9-stig-project/
 ├── ansible                         ← Python venv for ansible (2.16)
 ├── ansible.cfg
 ├── collections
-├── group_vars                      ← Useful for group specific vars (i.e different remote user) 
+├── group_vars                      ← Useful for group specific vars if using vault or seperate configurations per group 
 ├── requirements.yml
 ├── inventory/
 │   └── hosts
 ├── vars/
-│   └── profiles/                   ← Create different profiles for different images
-│       └── stig_defaults.yml       ← This is just the default (everything included)
-├── playbooks/                      ← Establish different targets/roles
+│   └── profiles/                   ← Baselines
+│       ├── stig_defaults.yml
+│       ├── stig_developer.yml
+│       └── stig_administrator.yml 
+├── playbooks/                      ← What actually gets run, define target, profile, and specific variables here.
 │   ├── stig_workstation.yml
-│   ├── stig_server.yml
-│   └── stig_packer.yml
+│   └── stig_server.yml
 └── roles/
 ```
 
