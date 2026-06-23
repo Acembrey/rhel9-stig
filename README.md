@@ -14,23 +14,33 @@ Modular Ansible project for applying the DISA STIG RHEL 9 (Currently V2R8) role
 
 ```
 rhel9-stig-project/
-├── ansible                         ← Python venv for ansible (2.16)
+├── ansible                         ← Python Virtual Environment for Ansible
+│   ├── README.md
+│   └── setup.sh
 ├── ansible.cfg
 ├── collections
-├── group_vars                      ← Useful for group specific vars if using vault or seperate configurations per group 
+├── group_vars
+│   └── all
+├── host_vars
+├── inventory
+├── playbooks                       ← Target definitions, can include vars that override profile
+│   ├── stig_server.yml
+│   ├── stig_template.yml
+│   └── stig_workstation.yml
+├── README.md
 ├── requirements.yml
-├── inventory/
-│   └── hosts
-├── vars/
-│   └── profiles/                   ← Baselines
-│       ├── stig_defaults.yml
-│       ├── stig_developer.yml
-│       └── stig_administrator.yml 
-├── playbooks/                      ← What actually gets run, define target, profile, and specific variables here.
-│   ├── stig_workstation.yml
-│   ├── stig_server.yml
-│   └── stig_template.yml 
-└── roles/
+├── roles
+├── scripts                         ← Bash scripts to simplify environment actions
+│   ├── init.sh
+│   └── STIG_workstation.sh
+├── tasks                           ← Additional Ansible tasks separate from roles
+│   ├── oscap_server.yml
+│   └── oscap_workstation.yml
+└── vars                            ← Profile definitions (image defaults)
+    └── profiles
+        ├── stig_administrator.yml
+        ├── stig_defaults.yml
+        └── stig_developer.yml
 ```
 
 ---
