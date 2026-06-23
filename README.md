@@ -5,6 +5,7 @@ Modular Ansible project for applying the DISA STIG RHEL 9 (Currently V2R8) role
 * Define targets, and target specific configurations, under `playbooks`
 * All tools are self contained and static. Currently and outbound connection is required to build the environment. This can be adjusted later depending on requirements.
 * Another task will be created to actually scan the system after the role has been applied. OSCAP will be used currently, but I'd like to get my hands on Evaluate STIG, compare the functionality of the two, and determine which is easier to incorporate in a managed workflow.
+* Boot STIGs need to either be applied manually, or in a kickstart file.
 
 ---
 
