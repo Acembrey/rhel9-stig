@@ -1,0 +1,47 @@
+---
+# Can be overridden, wanted benchmark file to always be up to date, so we pull from upstream
+- name: Set oscap scan deafults
+  set_fact:
+      scap_datastream_path: "{{ scap_local_path | default('/usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml') }}"
+      xccdf_profile: "{{ xccdf_profile | default('xccdf_org.ssgproject.content_profile_stig') }}"
+      scap_report_dir: "{{ scap_report_dir | default('/var/log/oscap-reports') }}"
+      scan_timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
+
+- name: Install openscap-scanner and scap-security-guide
+  dnf:
+    name:
+      - openscap
+      - openscap-scanner
+      - scap-security-guide
+    state: present
+
+- name: Ensure oscap report directory exists
+  file:
+    path: "{{ scap_report_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0750
+
+- name: Run OpenSCAP
+  command:
+    cmd: >-
+      oscap xccdf eval
+      --profile {{ xccdf_profile }}
+      --results-arf {{ scap_report_dir }}/arf-{{ ansible_hostname }}-{{ scan_timestamp }}.xml
+      --report {{ scap_report_dir }}/report-{{ ansible_hostname }}-{{ scan_timestamp }}.html
+      {{ scap_datastream_path }}
+  register: oscap_result
+  failed_when: oscap_result.rc not in [0,2]
+  changed_when: true
+
+- name: Show scan outcome
+  debug:
+    msg: "oscap exited {{ oscap_result.rc }}"
+
+- name: Print report locations
+  debug:
+    msg: 
+      - "ARF: {{ scap_report_dir }}/arf-{{ ansible_hostname }}-{{ scan_timestamp }}.xml"
+      - "HTML: {{ scap_report_dir }}/report-{{ ansible_hostname }}-{{ scan_timestamp }}.html"
+

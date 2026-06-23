@@ -30,3 +30,7 @@
   roles:
     - role: RedHatOfficial.rhel9_stig
     # NOTE: rhel9_stig_gui is intentionally NOT listed here
+
+  tasks:
+    - name: Run OpenSCAP after STIG application
+      import_tasks: ../tasks/oscap_server.yml

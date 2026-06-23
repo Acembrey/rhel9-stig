@@ -12,3 +12,7 @@
   roles:
     # This role is REQUIRED for a graphical workstation to meet DISA reqs
     - role: RedHatOfficial.rhel9_stig_gui
+
+  tasks:
+    - name: Include OpenSCAP scanning task
+      import_tasks: ../tasks/oscap_workstation.yml
